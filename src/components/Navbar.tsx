@@ -1,61 +1,41 @@
-import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useState } from "react";
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
-  const isMobile = useIsMobile();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const navItems = [
-    { label: "Home", href: "#" },
-    { label: "Features", href: "#features" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
-  ];
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-md z-50 border-b">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-          Logo
+    <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 py-4">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center">
+          <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            YourBrand
+          </div>
+          
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-8">
+            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+            <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
+            <a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors">About</a>
+            <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
-        {isMobile ? (
-          <div className="relative">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <Menu className="h-6 w-6" />
-            </Button>
-            {isMenuOpen && (
-              <div className="absolute top-full right-0 mt-2 w-48 bg-background border rounded-lg shadow-lg py-2 animate-fade-up">
-                {navItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="block px-4 py-2 hover:bg-accent"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="flex gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-foreground/80 hover:text-foreground transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t py-4 px-4 space-y-4">
+            <a href="#" className="block text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+            <a href="#features" className="block text-gray-600 hover:text-gray-900 transition-colors">Features</a>
+            <a href="#about" className="block text-gray-600 hover:text-gray-900 transition-colors">About</a>
+            <a href="#contact" className="block text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
           </div>
         )}
       </div>
