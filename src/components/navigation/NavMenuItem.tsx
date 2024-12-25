@@ -21,7 +21,7 @@ const NavMenuItem = ({ title, image, children }: NavMenuItemProps) => {
         {title}
       </NavigationMenuTrigger>
       <NavigationMenuContent>
-        <div className="w-screen max-w-screen-2xl mx-auto grid gap-0 p-2 md:grid-cols-[1fr_300px] bg-white max-h-[200px]">
+        <div className="w-screen max-w-screen-2xl mx-auto grid gap-0 px-6 py-2 md:grid-cols-[1fr_300px] bg-white max-h-[200px]">
           <div className="grid gap-2 overflow-y-auto">
             {React.Children.map(children, child => {
               if (isGiftUniverse) {
@@ -44,11 +44,11 @@ const NavMenuItem = ({ title, image, children }: NavMenuItemProps) => {
               return child;
             })}
           </div>
-          <div className="h-full">
+          <div className="h-full flex items-center justify-center p-2">
             <img
               src={image}
               alt={`${title} Collection`}
-              className="w-full h-full object-cover rounded-lg"
+              className="w-full h-full object-contain rounded-lg"
             />
           </div>
         </div>
